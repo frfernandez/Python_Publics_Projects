@@ -1,0 +1,1 @@
+print("Espaço", "Traço", sep="-")

@@ -1,0 +1,6 @@
+print(2 ** 3 ** 2 ** 1)
+print()
+print("O símbolo ** representa potência.")
+print("Inicia a solução realizando a pontência do segundo número com o terceiro número.")
+print("Utiliza o resultado da primeira solução elevando a potência do número seguinte.")
+print("O resultado final é utilizado como potência no primeiro número.")
