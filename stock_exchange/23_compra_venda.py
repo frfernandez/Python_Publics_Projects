@@ -119,6 +119,15 @@ def build_hilo_signal_list(window=5):
     return aapl_hilo
 
 
+def build_cross_avg_signal_list(short_window=5, long_window=9):
+    aapl_short_avg = aapl.Close.rolling(window=short_window).mean()
+    aapl_long_avg = aapl.Close.rolling(window=long_window).mean()
+    aapl_cross_avg = pd.DataFrame(index=aapl.index)
+    aapl_cross_avg["signal"] = np.where(aapl_short_avg > aapl_long_avg, 1, -1)
+
+    return aapl_cross_avg
+
+
 tickers = ["AAPL", "MSFT", "^GSPC"]
 start_date = datetime(year=2018, month=1, day=1,
                       hour=0, minute=0, second=0, microsecond=0)
@@ -136,12 +145,32 @@ for window in range(2, 22):
     signals = build_hilo_signal_list(window=window)
     bt = BackTest(aapl, signals, log=False)
     bt.start()
-    profit = sum(bt.trades)
 
+    profit = sum(bt.trades)
     if (best_profit is None) or (best_profit[1] < profit):
         best_profit = (window, profit)
 
     print(f"Profit for window = {window}:{profit}")
+
+print("-" * 100)
+print(f"Best Profit: Window = {best_profit[0]}:{best_profit[1]}")
+print()
+
+best_profit = None
+print(f"BackTest Cross Avg - Start Date: {start_date} / End Date: {end_date}")
+print("-" * 100)
+
+for short_window in range(2, 22):
+    for long_window in range(2, 22):
+        signals = build_cross_avg_signal_list(short_window=short_window, long_window=long_window)
+        bt = BackTest(aapl, signals, log=False)
+        bt.start()
+
+        profit = sum(bt.trades)
+        if (best_profit is None) or (best_profit[1] < profit):
+            best_profit = ((short_window, long_window), profit)
+
+        print(f"Profit for window = {short_window}/{long_window}:{profit}")
 
 print("-" * 100)
 print(f"Best Profit: Window = {best_profit[0]}:{best_profit[1]}")
