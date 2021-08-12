@@ -111,13 +111,13 @@ _data = df
 trace_up_trend = go.Scatter(name="ATR - Trend Up",
                             x=_data.index,
                             y=_data.up_trend,
-                            line=dict(color="17BECF"),
+                            line=dict(color="#17BECF"),
                             opacity=1)
 
 trace_down_trend = go.Scatter(name="ATR - Trend Down",
                             x=_data.index,
                             y=_data.down_trend,
-                            line=dict(color="B22222"),
+                            line=dict(color="#B22222"),
                             opacity=1)
 
 trace = go.Candlestick(name="AAPL",
