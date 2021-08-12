@@ -57,7 +57,7 @@ df = pd.DataFrame(data=dict(open=aapl.Open,
                             low=aapl.Low,
                             close=aapl.Close,
                             close_prev=aapl.Close.shift(1)))
-df["tr"] = df[["high", "close_prev"]].max(axis=1) - df[["high", "close_prev"]].min(axis=1)
+df["atr"] = df[["high", "close_prev"]].max(axis=1) - df[["high", "close_prev"]].min(axis=1)
 
 atr_period = 21
 factor = 2.7
