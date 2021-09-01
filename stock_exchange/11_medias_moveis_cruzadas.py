@@ -28,15 +28,15 @@ def simple_plot(data, title):
 
 
 tickers = ["AAPL", "MSFT", "^GSPC"]
-start_date = datetime(year=2018, month=1, day=1,
+start_date = datetime(year=2017, month=1, day=1,
                       hour=0, minute=0, second=0, microsecond=0)
-end_date = datetime(year=2019, month=12, day=31,
+end_date = datetime(year=2018, month=12, day=31,
                     hour=0, minute=0, second=0, microsecond=0)
 
 data = get(tickers, start_date, end_date)
 
 msft = data.loc["MSFT"].dropna()
-msft = msft["2019-01-01":]
+msft = msft["2018-01-01":]
 short_rolling_msft = msft.Close.rolling(window=9).mean()
 long_rolling_msft = msft.Close.rolling(window=21).mean()
 

@@ -58,7 +58,6 @@ print()
 print("long_rolling")
 print(long_rolling)
 
-media_longa = []
 posicao = Operacao(1)
 
 """
@@ -74,6 +73,11 @@ print("short_rolling - loop for")
 for data_hora, media_curta in short_rolling.iterrows():
     print(data_hora, "|", str(data_hora).replace("00:00:00", "23:59:59"), "|", media_curta.Close)
     media_longa = long_rolling[data_hora:str(data_hora).replace("00:00:00", "23:59:59")].Close
+
+    print()
+    print("media_longa")
+    print(media_longa)
+    print()
 
     if not media_longa.empty:
         print("media_longa: ", media_longa[0])
