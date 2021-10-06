@@ -26,6 +26,7 @@ def get_ema(window, prices):
 
     for i in range(1, len(data)):
         data.EMA[i] = (data.Price[i] * K) + ((1 - K) * data.EMA[i - 1])
+        print(data.EMA[i])
 
     return data
 
@@ -55,10 +56,16 @@ data = get(tickers, start_date, end_date)
 msft = data.loc["MSFT"].dropna()
 msft = msft["2018-06-01":]
 
+print()
+print("mm_12")
 mm_12 = get_ema(12, msft.Close)
+print()
+print("mm_26")
 mm_26 = get_ema(26, msft.Close)
 
 mm_macd = mm_12.EMA - mm_26.EMA
+print()
+print("mm_signal")
 mm_signal = get_ema(9, mm_macd.dropna()).EMA
 
 msft = msft[mm_signal.index[0]:]
