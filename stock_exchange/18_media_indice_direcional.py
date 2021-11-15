@@ -90,6 +90,8 @@ for i in range(window, len(data)):
     data.dmMinusAvg[i] = data.dmMinusAvg[i - 1] - (data.dmMinusAvg[i - 1] / window) + data.dmMinus[i]
 
 data = data.dropna()
+print(data.head())
+
 data["diPlus"] = (data.dmPlusAvg / data.trAvg) * 100
 data["diMinus"] = (data.dmMinusAvg / data.trAvg) * 100
 print()
